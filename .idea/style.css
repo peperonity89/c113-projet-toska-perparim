@@ -1,6 +1,11 @@
+
 body {
-    font-family: Verdana;
+    background-color: #1c2942;
 }
-body {
-    background-color: lightsteelblue;
+h1 {
+    color: #FFFFFF;font-family: "geneva";
+}
+
+h2 {
+    color: #FFFFFF;font-family: "geneva";
 }
