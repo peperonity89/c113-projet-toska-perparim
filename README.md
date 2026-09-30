@@ -3,7 +3,7 @@
 ## 1. 🎨 Présentation du projet
 
 ### Concept
-- Thème choisi : Site internet de téléphonie mobile
+- Thème choisi : Opérateur mobile
 - Public cible : Tous
 - Objectifs du site : Vitrine des prix et services pour les abonnements mobiles
 
