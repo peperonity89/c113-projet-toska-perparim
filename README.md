@@ -46,11 +46,11 @@
 
 ### Choix de design
 - Palette de couleurs :  
-  - Couleur principale : `#XXXXXX` – …
-  - Couleur secondaire : `#XXXXXX` – …
-  - Couleur d’accent : `#XXXXXX` – …
-  - Couleur de texte : `#XXXXXX` – …
-  - Couleur de fond : `#XXXXXX` – …
+  - Couleur principale : `#FFFFFF` – White
+  - Couleur secondaire : `#DA574D` – Rosy Copper
+  - Couleur d’accent :`#B1435B`– Berry Crush
+  - Couleur de texte : `#732A4A` – Dark Raspberry
+  - Couleur de fond : `#000000` - Black
 - Lien vers palette générée : …
 - Typographies :  
   - Titres : … (fichiers dans `/fonts`)  
@@ -85,8 +85,8 @@
 ## 5. 🤖 Usage de l’IA (si applicable)
 
 ### IA utilisée
-- Nom et version : …
-- Contexte : génération de code / debug / recherche / rédaction
+- Nom et version : Gemini, Chat gpt, Claude
+- Contexte : Gemini + Chat gpt = génération d'images | Claude : génération de prompt pour des images
 
 ### Utilisation détaillée
 - Contenu généré avec l’IA : …
