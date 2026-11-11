@@ -36,7 +36,7 @@ header a {
 
 .logo-image {
     height: 90px;
-    width: 100%; /* à voir si mettre sur auto*/
+    width: auto; /* à voir si mettre sur auto*/
 }
 
 .menu {
