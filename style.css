@@ -1,0 +1,310 @@
+/* =========================================================================
+   PePe Mobile — feuille de style unique
+   Plan : 1. variables · 2. base · 3. en-tête et navigation · 4. contenu
+          5. galerie de cartes · 6. pied de page
+          7. tablette (≥ 768 px) · 8. bureau (≥ 1024 px)
+   Mobile d'abord : les règles sans media query sont celles du téléphone ;
+   les deux @media ajoutent la mise en page des écrans plus larges.
+   ========================================================================= */
+
+
+/* ---------- 1. Variables ---------- */
+:root {
+    /* Couleurs : la palette du README (Coolors). Chaque couleur a un rôle,
+       choisi pour que le texte reste lisible (contraste ≥ 4,5:1). */
+    --couleur-fond: #000000;          /* Black : le fond, qui fait briller le logo */
+    --couleur-texte: #ffffff;         /* White : le texte, 21:1 sur le noir */
+    --couleur-carte: #732a4a;         /* Dark Raspberry : fond des cartes, texte blanc 9,7:1 */
+    --couleur-bouton: #b1435b;        /* Berry Crush : fond des boutons, texte blanc 5,5:1 */
+    --couleur-lien: #da574d;          /* Rosy Copper : liens et titres sur le noir, 5,5:1
+                                         (mais blanc sur corail = 3,9:1 : jamais en fond de texte) */
+
+    /* Polices : Verdana partout (mon choix : très lisible à l'écran).
+       Deux variables, une par rôle : changer la police des titres ne demandera qu'une ligne.
+       Si Verdana manque sur l'appareil, Geneva puis une police sans empattement la remplacent. */
+    --police-titre: Verdana, Geneva, sans-serif;
+    --police-texte: Verdana, Geneva, sans-serif;
+
+    /* Espacements : une seule échelle, réutilisée partout (marges, espaces entre les blocs) */
+    --espace-s: 0.5rem;
+    --espace-m: 1rem;
+    --espace-l: 2rem;
+
+    --rayon: 1rem;                    /* arrondi des cartes et des boutons */
+}
+
+
+/* ---------- 2. Base ---------- */
+
+/* La largeur d'une boîte compte son padding et sa bordure (séance 8). */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--police-texte);
+    font-size: 1rem;                  /* rem pour le texte : le visiteur peut l'agrandir */
+    line-height: 1.6;                 /* interligne aéré, entre 1.5 et 1.7 */
+    color: var(--couleur-texte);
+    background-color: var(--couleur-fond);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--police-titre);
+    line-height: 1.2;
+}
+
+/* Les grands titres prennent la couleur d'accent (séance 6) ;
+   les h3 des cartes restent blancs : le corail sur le fond framboise ne se lirait pas (2,5:1). */
+h1,
+h2 {
+    color: var(--couleur-lien);
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+}
+
+/* Une image n'est jamais plus large que son conteneur (séance 8). */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Les liens : un état pour chaque situation. */
+a {
+    color: var(--couleur-lien);
+}
+
+a:visited {
+    color: var(--couleur-texte);      /* un lien déjà visité passe en blanc */
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;            /* le soulignement disparaît sous la souris ou au clavier */
+}
+
+
+/* ---------- 3. En-tête et navigation (Flexbox) ---------- */
+.header {
+    display: flex;
+    flex-direction: column;           /* téléphone : le logo au-dessus du menu */
+    align-items: center;
+    gap: var(--espace-m);
+    padding: var(--espace-m);
+    border-bottom: 2px solid var(--couleur-carte);
+}
+
+.logo-image {
+    height: 90px;                     /* la hauteur du logo dans l'en-tête */
+    width: auto;                      /* la largeur suit : les proportions sont gardées */
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;           /* téléphone : les liens les uns sous les autres */
+    align-items: center;
+    gap: var(--espace-s);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.menu a {
+    display: block;
+    padding: var(--espace-s) var(--espace-m);
+    border-radius: var(--rayon);
+    color: var(--couleur-texte);
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.25s;   /* le fond change en douceur */
+}
+
+/* Dans le menu, un lien visité garde sa couleur : c'est de la navigation, pas un article lu. */
+.menu a:visited {
+    color: var(--couleur-texte);
+}
+
+.menu a:hover,
+.menu a:focus {
+    background-color: var(--couleur-bouton);
+}
+
+/* La page où l'on est : aria-current="page" (séance 10). */
+.menu [aria-current="page"] {
+    background-color: var(--couleur-carte);
+}
+
+
+/* ---------- 4. Contenu ---------- */
+main {
+    max-width: 1100px;
+    margin: 0 auto;                   /* centré (séance 10) */
+    padding: var(--espace-l) var(--espace-m);
+}
+
+section {
+    margin-bottom: var(--espace-l);
+}
+
+p {
+    max-width: 60ch;                  /* des lignes pas trop longues : plus faciles à lire */
+}
+
+/* Un lien qui a l'air d'un bouton : il mène vers une autre page. */
+.bouton {
+    display: inline-block;
+    padding: var(--espace-s) var(--espace-l);
+    border-radius: var(--rayon);
+    background-color: var(--couleur-bouton);
+    color: var(--couleur-texte);
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.25s;
+}
+
+.bouton:visited {
+    color: var(--couleur-texte);
+}
+
+.bouton:hover,
+.bouton:focus {
+    background-color: var(--couleur-carte);
+}
+
+/* Les listes d'arguments (« Pourquoi PePe Mobile ? », « Nos valeurs ») : une petite bordure à gauche. */
+.avantages {
+    display: grid;
+    gap: var(--espace-m);
+    padding: 0;
+    list-style: none;
+}
+
+.avantages li {
+    padding: var(--espace-m);
+    border-left: 4px solid var(--couleur-lien);
+}
+
+/* Texte + image : l'un sous l'autre sur téléphone, côte à côte dès 768 px. */
+.colonnes {
+    display: grid;
+    gap: var(--espace-l);
+    align-items: center;
+}
+
+figure {
+    margin: 0;
+}
+
+figure img {
+    border-radius: var(--rayon);
+}
+
+figcaption {
+    margin-top: var(--espace-s);
+    color: var(--couleur-lien);
+}
+
+/* Un tableau pour des données (séance 4). */
+table {
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: var(--espace-s) var(--espace-m);
+    border: 1px solid var(--couleur-carte);
+    text-align: left;
+}
+
+
+/* ---------- 5. Galerie de cartes (CSS Grid, séance 11) ---------- */
+.galerie {
+    display: grid;
+    gap: 1rem;
+    /* autant de colonnes de 250 px au moins que la largeur le permet : 1 sur téléphone, 2 ou 3 sur un grand écran */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* Une carte : bordure, fond et espacement intérieur (séance 8).
+   Grid pour la galerie, Flexbox dans la carte (séance 11) : les boutons s'alignent en bas. */
+.carte {
+    display: flex;
+    flex-direction: column;           /* le titre, le prix, la liste et le bouton, les uns sous les autres */
+    align-items: flex-start;          /* le bouton garde sa largeur, il ne s'étire pas */
+    padding: var(--espace-l) var(--espace-m);
+    border: 2px solid var(--couleur-bouton);
+    border-radius: var(--rayon);
+    background-color: var(--couleur-carte);
+}
+
+.carte h3 {
+    margin-top: 0;
+}
+
+.carte ul {
+    flex-grow: 1;                     /* la liste prend la place libre : le bouton descend en bas de la carte */
+}
+
+.prix {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+/* ---------- 6. Pied de page ---------- */
+.pied {
+    padding: var(--espace-l) var(--espace-m);
+    border-top: 2px solid var(--couleur-carte);
+    text-align: center;
+}
+
+
+/* ---------- 7. Tablette : à partir de 768 px ---------- */
+@media (min-width: 768px) {
+    .header {
+        flex-direction: row;          /* le logo à gauche, le menu à droite */
+        justify-content: space-between;
+        padding: var(--espace-m) var(--espace-l);
+    }
+
+    .menu {
+        flex-direction: row;          /* les liens côte à côte (séance 11) */
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .colonnes {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .avantages {
+        grid-template-columns: repeat(3, 1fr);    /* les trois arguments côte à côte */
+    }
+}
+
+
+/* ---------- 8. Bureau : à partir de 1024 px ---------- */
+@media (min-width: 1024px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    main {
+        padding: var(--espace-l);
+    }
+}
