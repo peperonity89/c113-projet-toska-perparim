@@ -1,55 +1,42 @@
-/* =========================================================================
-   PePe Mobile — feuille de style unique
-   Plan : 1. variables · 2. base · 3. en-tête et navigation · 4. contenu
-          5. galerie de cartes · 6. pied de page
-          7. tablette (≥ 768 px) · 8. bureau (≥ 1024 px)
-   Mobile d'abord : les règles sans media query sont celles du téléphone ;
-   les deux @media ajoutent la mise en page des écrans plus larges.
-   ========================================================================= */
+/*  PePe Mobile : la feuille de style */
+/* D'abord le téléphone. En bas, les @media changent la page pour les écrans plus grands. */
 
 
-/* ---------- 1. Variables ---------- */
+/*  Les variables : mes couleurs, ma police et mes espaces  */
 :root {
-    /* Couleurs : la palette du README (Coolors). Chaque couleur a un rôle,
-       choisi pour que le texte reste lisible (contraste ≥ 4,5:1). */
-    --couleur-fond: #000000;          /* Black : le fond, qui fait briller le logo */
-    --couleur-texte: #ffffff;         /* White : le texte, 21:1 sur le noir */
-    --couleur-carte: #732a4a;         /* Dark Raspberry : fond des cartes, texte blanc 9,7:1 */
-    --couleur-bouton: #b1435b;        /* Berry Crush : fond des boutons, texte blanc 5,5:1 */
-    --couleur-lien: #da574d;          /* Rosy Copper : liens et titres sur le noir, 5,5:1
-                                         (mais blanc sur corail = 3,9:1 : jamais en fond de texte) */
+    --couleur-fond: #000000;          /* noir : le fond de la page */
+    --couleur-texte: #ffffff;         /* blanc : le texte */
+    --couleur-carte: #732a4a;         /* framboise foncé : le fond des cartes */
+    --couleur-bouton: #b1435b;        /* framboise : les boutons */
+    --couleur-lien: #da574d;          /* corail : les liens et les titres */
 
-    /* Polices : Verdana partout (mon choix : très lisible à l'écran).
-       Deux variables, une par rôle : changer la police des titres ne demandera qu'une ligne.
-       Si Verdana manque sur l'appareil, Geneva puis une police sans empattement la remplacent. */
-    --police-titre: Verdana, Geneva, sans-serif;
-    --police-texte: Verdana, Geneva, sans-serif;
+    --police-titre: Verdana, Geneva, sans-serif;   /* la police des titres */
+    --police-texte: Verdana, Geneva, sans-serif;   /* la police du texte */
 
-    /* Espacements : une seule échelle, réutilisée partout (marges, espaces entre les blocs) */
-    --espace-s: 0.5rem;
-    --espace-m: 1rem;
-    --espace-l: 2rem;
+    --espace-s: 0.5rem;               /* petit espace */
+    --espace-m: 1rem;                 /* espace moyen */
+    --espace-l: 2rem;                 /* grand espace */
 
-    --rayon: 1rem;                    /* arrondi des cartes et des boutons */
+    --rayon: 1rem;                    /* les coins arrondis */
 }
 
 
-/* ---------- 2. Base ---------- */
-
-/* La largeur d'une boîte compte son padding et sa bordure (séance 8). */
+/* La taille d'une boîte compte aussi le padding et sa bordure */
 * {
     box-sizing: border-box;
 }
 
+/* Toute la page : fond noir, texte blanc, en Verdana */
 body {
-    margin: 0;
+    margin: 0;                        /* pas de marge autour de la page */
     font-family: var(--police-texte);
-    font-size: 1rem;                  /* rem pour le texte : le visiteur peut l'agrandir */
-    line-height: 1.6;                 /* interligne aéré, entre 1.5 et 1.7 */
+    font-size: 1rem;                  /* en rem : le visiteur peut agrandir le texte */
+    line-height: 1.6;                 /* de l'espace entre les lignes */
     color: var(--couleur-texte);
     background-color: var(--couleur-fond);
 }
 
+/* Les titres */
 h1,
 h2,
 h3 {
@@ -57,15 +44,14 @@ h3 {
     line-height: 1.2;
 }
 
-/* Les grands titres prennent la couleur d'accent (séance 6) ;
-   les h3 des cartes restent blancs : le corail sur le fond framboise ne se lirait pas (2,5:1). */
+/* Les grands titres en corail */
 h1,
 h2 {
     color: var(--couleur-lien);
 }
 
 h1 {
-    font-size: 2rem;
+    font-size: 2rem; /* le plus grand titre */
 }
 
 h2 {
@@ -76,94 +62,99 @@ h3 {
     font-size: 1.25rem;
 }
 
-/* Une image n'est jamais plus large que son conteneur (séance 8). */
+/* Une image ne dépasse jamais de son cadre */
 img {
     max-width: 100%;
     height: auto;
 }
 
-/* Les liens : un état pour chaque situation. */
+/* Les liens */
 a {
-    color: var(--couleur-lien);
+    color: var(--couleur-lien);       /* corail */
 }
 
 a:visited {
-    color: var(--couleur-texte);      /* un lien déjà visité passe en blanc */
+    color: var(--couleur-texte);      /* blanc */
 }
 
 a:hover,
 a:focus {
-    text-decoration: none;            /* le soulignement disparaît sous la souris ou au clavier */
+    text-decoration: none;
 }
 
 
-/* ---------- 3. En-tête et navigation (Flexbox) ---------- */
+/* L'en-tête, le logo et le menu */
 .header {
-    display: flex;
-    flex-direction: column;           /* téléphone : le logo au-dessus du menu */
-    align-items: center;
-    gap: var(--espace-m);
+    display: flex;                    /* Flexbox range le logo et le menu */
+    flex-direction: column;           /* sur téléphone : le logo au-dessus du menu */
+    align-items: center;              /* au centre */
+    gap: var(--espace-m);             /* de l'espace entre le logo et le menu */
     padding: var(--espace-m);
-    border-bottom: 2px solid var(--couleur-carte);
+    border-bottom: 2px solid var(--couleur-carte);   /* une ligne sous l'en-tête */
 }
 
 .logo-image {
-    height: 90px;                     /* la hauteur du logo dans l'en-tête */
-    width: auto;                      /* la largeur suit : les proportions sont gardées */
+    height: 90px;                     /* la hauteur du logo */
+    width: auto;                      /* la largeur suit toute seule */
 }
 
+/* Le menu : sur téléphone, les liens les uns sous les autres */
 .menu {
     display: flex;
-    flex-direction: column;           /* téléphone : les liens les uns sous les autres */
+    flex-direction: column;
     align-items: center;
     gap: var(--espace-s);
     margin: 0;
     padding: 0;
-    list-style: none;
+    list-style: none;                 /* pas de puces */
 }
 
+/* Un lien du menu */
 .menu a {
     display: block;
     padding: var(--espace-s) var(--espace-m);
     border-radius: var(--rayon);
     color: var(--couleur-texte);
     font-weight: bold;
-    text-decoration: none;
-    transition: background-color 0.25s;   /* le fond change en douceur */
+    text-decoration: none;            /* pas de soulignement */
+    transition: background-color 0.25s;   /* la couleur change doucement */
 }
 
-/* Dans le menu, un lien visité garde sa couleur : c'est de la navigation, pas un article lu. */
+/* Dans le menu, un lien visité reste blanc */
 .menu a:visited {
     color: var(--couleur-texte);
 }
 
+/* Sous la souris ou avec la touche Tab : fond framboise */
 .menu a:hover,
 .menu a:focus {
     background-color: var(--couleur-bouton);
 }
 
-/* La page où l'on est : aria-current="page" (séance 10). */
+/* La page où on est : fond framboise foncé */
 .menu [aria-current="page"] {
     background-color: var(--couleur-carte);
 }
 
-
-/* ---------- 4. Contenu ---------- */
+.contact_1 {
+    height: 45rem;
+}
+/* ----- Le contenu ----- */
 main {
-    max-width: 1100px;
-    margin: 0 auto;                   /* centré (séance 10) */
+    max-width: 1100px;                /* pas plus large que 1100 px */
+    margin: 0 auto;                   /* au centre de l'écran */
     padding: var(--espace-l) var(--espace-m);
 }
 
 section {
-    margin-bottom: var(--espace-l);
+    margin-bottom: var(--espace-l);   /* de l'espace sous chaque partie */
 }
 
 p {
-    max-width: 60ch;                  /* des lignes pas trop longues : plus faciles à lire */
+    max-width: 60ch;                  /* des lignes pas trop longues, plus faciles à lire */
 }
 
-/* Un lien qui a l'air d'un bouton : il mène vers une autre page. */
+/* Un lien qui ressemble à un bouton */
 .bouton {
     display: inline-block;
     padding: var(--espace-s) var(--espace-l);
@@ -179,47 +170,51 @@ p {
     color: var(--couleur-texte);
 }
 
+/* Sous la souris ou avec la touche Tab : fond framboise foncé */
 .bouton:hover,
 .bouton:focus {
     background-color: var(--couleur-carte);
 }
 
-/* Les listes d'arguments (« Pourquoi PePe Mobile ? », « Nos valeurs ») : une petite bordure à gauche. */
+/* Les listes « Pourquoi PePe Mobile ? » et « Nos valeurs » */
 .avantages {
     display: grid;
     gap: var(--espace-m);
     padding: 0;
-    list-style: none;
+    list-style: none;                 /* pas de puces */
 }
 
 .avantages li {
     padding: var(--espace-m);
-    border-left: 4px solid var(--couleur-lien);
+    border-left: 4px solid var(--couleur-lien);   /* une barre corail à gauche */
 }
 
-/* Texte + image : l'un sous l'autre sur téléphone, côte à côte dès 768 px. */
+/* Texte et image : l'un sous l'autre sur téléphone */
 .colonnes {
     display: grid;
     gap: var(--espace-l);
     align-items: center;
 }
 
+/* L'image avec sa légende */
 figure {
     margin: 0;
 }
 
 figure img {
-    border-radius: var(--rayon);
+    border-radius: var(--rayon);      /* coins arrondis */
 }
 
 figcaption {
     margin-top: var(--espace-s);
-    color: var(--couleur-lien);
+    color: var(--couleur-lien);       /* la légende en corail */
 }
 
-/* Un tableau pour des données (séance 4). */
+/* Le tableau des abonnements */
 table {
-    border-collapse: collapse;
+    width: 100%;                      /* toute la largeur */
+    border-collapse: collapse;        /* une seule ligne entre les cases */
+    border-spacing: 0;
 }
 
 th,
@@ -230,20 +225,18 @@ td {
 }
 
 
-/* ---------- 5. Galerie de cartes (CSS Grid, séance 11) ---------- */
+/* ----- La galerie des abonnements (Grid) ----- */
 .galerie {
-    display: grid;
-    gap: 1rem;
-    /* autant de colonnes de 250 px au moins que la largeur le permet : 1 sur téléphone, 2 ou 3 sur un grand écran */
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    display: grid;                    /* une grille */
+    gap: 1rem;                        /* de l'espace entre les cartes */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));   /* autant de colonnes que possible, de 250 px au moins */
 }
 
-/* Une carte : bordure, fond et espacement intérieur (séance 8).
-   Grid pour la galerie, Flexbox dans la carte (séance 11) : les boutons s'alignent en bas. */
+/* Une carte d'abonnement (Flexbox à l'intérieur) */
 .carte {
     display: flex;
-    flex-direction: column;           /* le titre, le prix, la liste et le bouton, les uns sous les autres */
-    align-items: flex-start;          /* le bouton garde sa largeur, il ne s'étire pas */
+    flex-direction: column;           /* le contenu de haut en bas */
+    align-items: flex-start;          /* le bouton garde sa taille */
     padding: var(--espace-l) var(--espace-m);
     border: 2px solid var(--couleur-bouton);
     border-radius: var(--rayon);
@@ -251,28 +244,29 @@ td {
 }
 
 .carte h3 {
-    margin-top: 0;
+    margin-top: 0;                    /* pas d'espace au-dessus du titre */
 }
 
 .carte ul {
-    flex-grow: 1;                     /* la liste prend la place libre : le bouton descend en bas de la carte */
+    flex-grow: 1;                     /* la liste prend la place libre : les boutons s'alignent en bas */
 }
 
+/* Le prix, en grand et en gras */
 .prix {
     font-size: 2rem;
     font-weight: bold;
 }
 
 
-/* ---------- 6. Pied de page ---------- */
+/* ----- Le pied de page ----- */
 .pied {
     padding: var(--espace-l) var(--espace-m);
-    border-top: 2px solid var(--couleur-carte);
+    border-top: 2px solid var(--couleur-carte);   /* une ligne au-dessus */
     text-align: center;
 }
 
 
-/* ---------- 7. Tablette : à partir de 768 px ---------- */
+/* ----- Tablette : à partir de 768 px ----- */
 @media (min-width: 768px) {
     .header {
         flex-direction: row;          /* le logo à gauche, le menu à droite */
@@ -281,30 +275,30 @@ td {
     }
 
     .menu {
-        flex-direction: row;          /* les liens côte à côte (séance 11) */
+        flex-direction: row;          /* les liens côte à côte */
     }
 
     h1 {
-        font-size: 2.5rem;
+        font-size: 2.5rem;            /* un titre plus grand */
     }
 
     .colonnes {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;   /* texte et image côte à côte */
     }
 
     .avantages {
-        grid-template-columns: repeat(3, 1fr);    /* les trois arguments côte à côte */
+        grid-template-columns: repeat(3, 1fr);   /* 3 colonnes */
     }
 }
 
 
-/* ---------- 8. Bureau : à partir de 1024 px ---------- */
+/* ----- Ordinateur : à partir de 1024 px ----- */
 @media (min-width: 1024px) {
     h1 {
-        font-size: 3rem;
+        font-size: 3rem;              /* un titre encore plus grand */
     }
 
     main {
-        padding: var(--espace-l);
+        padding: var(--espace-l);     /* plus d'espace autour du contenu */
     }
 }
